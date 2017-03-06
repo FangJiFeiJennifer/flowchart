@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>flowchart.js · Playground</title>
+  <style type="text/css">
+    .diagrams{
+      display: flex;
+      background: #f4fffd;
+    }
+
+    .diagrams div{
+      border: 1px dotted #07fffe;
+    }
+
+    .diagrams div:first-child{
+      flex: 1;
+    }
+    .diagrams div:nth-child(2){
+      flex: 2;
+    }
+  </style>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.0/raphael-min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="http://flowchart.js.org/flowchart-latest.js"></script>
+</head>
+<body>
+<div class="diagrams">
+  <div id="diagram1"></div>
+  <div id="diagram2"></div>
+</div>
+
+<script>
+  var code    = 'st=>start: Start\n'
+      + 'e=>end\n'
+      + 'op=>operation: My Operation\n'
+      + 'cond=>condition: Yes or No?\n'
+
+      + 'st->op->cond\n'
+      + 'cond(yes)->e\n'
+      + 'cond(no)->op\n'
+    ;
+
+  var diagram = flowchart.parse(code);
+  diagram.drawSVG('diagram1',{theme: 'hand'});
+</script>
+
+<script>
+  var code    = 'st=>start: Start\n'
+      + 'e=>end: Ende\n'
+      + 'op1=>operation: My Operation|past\n'
+      + 'op2=>operation: Stuff|past\n'
+      + 'sub1=>subroutine: My Subroutine|invalid\n'
+      + 'cond=>condition: Yes or No?\n'
+      + 'c2=>condition: Good idea|rejected\n'
+      + 'io=>inputoutput: catch something...|future\n'
+
+      + 'st->op1(right)->cond\n'
+      + 'cond(yes, right)->c2\n'
+      + 'cond(no)->sub1(left)->op1\n'
+      + 'c2(yes)->io->e\n'
+      + 'c2(no)->op2->e\n';
+
+  var diagram = flowchart.parse(code);
+  diagram.drawSVG('diagram2',{theme: 'hand'});
+</script>
+</body>
+</html>
